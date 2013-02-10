@@ -38,7 +38,7 @@ return array(
     'service_manager' => array(
         'factories' => array(
             'translator' => 'Zend\I18n\Translator\TranslatorServiceFactory',
-            'Navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
+            'navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
         ),
     ),
     'translator' => array(
@@ -98,7 +98,25 @@ return array(
         'default' => array(
             array(
                 'label'      => 'Sign In',
-                'route'      => 'application/default',
+                'route'      => 'access-login',
+                'controller' => 'login',
+                'action'     => 'index',
+                'resource'   => 'LOGIN',
+                'privilege'  => 'ACESSAR',
+                'visible'    => true,
+            ),
+            array(
+                'label'      => 'Create Account',
+                'route'      => 'access-login',
+                'controller' => 'login',
+                'action'     => 'index',
+                'resource'   => 'LOGIN',
+                'privilege'  => 'ACESSAR',
+                'visible'    => true,
+            ),
+            array(
+                'label'      => 'Forgot your password?',
+                'route'      => 'access-login',
                 'controller' => 'login',
                 'action'     => 'index',
                 'resource'   => 'LOGIN',

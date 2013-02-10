@@ -111,4 +111,12 @@ class Acl extends ZendAcl
     {
         return parent::isAllowed($this->userId, $resourse, $privillege);
     }
+
+    /**
+     * @return int
+     */
+    public function getUserId()
+    {
+        return $this->userId;
+    }
 }

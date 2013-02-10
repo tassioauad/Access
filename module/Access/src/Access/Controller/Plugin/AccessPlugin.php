@@ -15,6 +15,12 @@ class AccessPlugin extends AbstractPlugin
      */
     private $session;
 
+
+    function __construct()
+    {
+
+    }
+
     public function login($username, $password)
     {
         $authenticate = $this->getServiceLocator()->get('Access\Auth\Auth');
@@ -22,9 +28,7 @@ class AccessPlugin extends AbstractPlugin
         $userEntity = $authenticate->isValid($username, $password);
 
         if ($userEntity) {
-            $acl = new \Access\Acl\Acl($this->getServiceLocator(), $userEntity);
-            $this->setAcl($acl);
-            $this->getServiceLocator()->get('Navigation')->setAcl($acl);
+            $this->setAcl(new \Access\Acl\Acl($this->getServiceLocator(), $userEntity));
             return true;
         }
 
@@ -62,6 +66,30 @@ class AccessPlugin extends AbstractPlugin
     }
 
     /**
+     * @param \Zend\Session\Container $session
+     */
+    protected function setSession($session)
+    {
+        $this->session = $session;
+    }
+
+    /**
+     * @return \Zend\Session\Container
+     */
+    protected function getSession()
+    {
+        $session = new Session('Access');
+        $session->setExpirationSeconds(1800);
+
+        if (empty($session->acl)) {
+            $acl = new \Access\Acl\Acl($this->getServiceLocator());
+            $session->acl = clone $acl;
+        }
+
+        return $session;
+    }
+
+    /**
      * @param \Access\Acl\Acl $acl
      */
     protected function setAcl(\Access\Acl\Acl $acl)
@@ -85,24 +113,5 @@ class AccessPlugin extends AbstractPlugin
         $acl = clone $session->acl;
 
         return $acl;
-    }
-
-    /**
-     * @param \Zend\Session\Container $session
-     */
-    protected function setSession($session)
-    {
-        $this->session = $session;
-    }
-
-    /**
-     * @return \Zend\Session\Container
-     */
-    protected function getSession()
-    {
-        $session = new Session('Access');
-        $session->setExpirationSeconds(1800);
-
-        return $session;
     }
 }
