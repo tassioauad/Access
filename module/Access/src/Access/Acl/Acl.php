@@ -119,4 +119,12 @@ class Acl extends ZendAcl
     {
         return $this->userId;
     }
+
+    /**
+     * @param int $userId
+     */
+    public function setUserId($userId)
+    {
+        $this->userId = $userId;
+    }
 }

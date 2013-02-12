@@ -41,6 +41,9 @@ class Module
     {
     	return array(
     			'factories' => array(
+                    'Access\Service\AclService' => function ($sm) {
+                        return new Service\AclService($sm);
+                    },
                     /* Models */
                     'Access\Model\User' => function ($sm) {
                         $entityManager = $sm->get('Doctrine\ORM\EntityManager');
@@ -76,7 +79,7 @@ class Module
                         $entityManager = $sm->get('Doctrine\ORM\EntityManager');
                         $auth = new Auth\Authentication($entityManager);
                         return $auth;
-                    }
+                    },
     			),
     	);
     }

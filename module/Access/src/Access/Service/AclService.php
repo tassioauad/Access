@@ -2,6 +2,8 @@
 namespace Access\Service;
 
 use \Zend\Session\Container as Session;
+use Zend\Permissions\Acl\Role\GenericRole;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
 class AclService
 {
@@ -10,12 +12,31 @@ class AclService
      */
     private $session;
 
-    function __construct()
+    /**
+     * @var ServiceLocatorInterface
+     */
+    private $serviceManager;
+
+    function __construct(ServiceLocatorInterface $sm)
     {
-        $session = new Session('Access');
+        $this->serviceManager = $sm;
+
+        $session = new Session('Acl');
         $session->setExpirationSeconds(1800);
 
-        $this->session = clone $session;
+        $this->session = $session;
+
+        if (empty($session->acl)) {
+            $acl = new \Access\Acl\Acl($sm);
+            $this->setAcl($acl);
+        }
+    }
+
+    public function setAcl(\Access\Acl\Acl $acl)
+    {
+        $this->getSession()->acl = $acl; //TODO: ISSO AQUI NÃO É SEMPRE CHAMADO E SO É SETADO O DEFAULT ACL E ROLE SE CAIR AQUI!
+        \Zend\View\Helper\Navigation::setDefaultAcl($acl);
+        $this->setUserRole(new GenericRole($acl->getUserId()));
     }
 
     /**
@@ -23,23 +44,34 @@ class AclService
      */
     public function getAcl()
     {
-        $session = clone $this->session;
-
-        if (empty($session->acl)) {
-            throw new \Exception("There is no ACL on the session");
-        }
-
-        $acl = clone $session->acl;
-
-        return $acl;
+        return $this->getSession()->acl;
     }
 
     /**
-     * @return int
+     * @return \Zend\Session\Container
      */
-    public function getAuthenticatedRole()
+    public function getSession()
     {
-        return $this->getAcl()->getUserId();
+        return $this->session;
     }
 
+    /**
+     * @return GenericRole
+     */
+    public function getUserRole()
+    {
+        $role = $this->getAcl()->getUserId();
+        if (empty($role)) {
+            $userRole = new GenericRole("GUESS");
+            \Zend\View\Helper\Navigation::setDefaultRole($userRole);
+            return $userRole;
+        }
+        return new GenericRole($this->getAcl()->getUserId());
+    }
+
+    public function setUserRole(GenericRole $userRole)
+    {
+        $this->getAcl()->setUserId($userRole->getRoleId());
+        \Zend\View\Helper\Navigation::setDefaultRole($userRole);
+    }
 }

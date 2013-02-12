@@ -4,6 +4,7 @@ namespace Access\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use \Zend\View\Helper\ViewModel;
+use Zend\Session\Container as Session;
 
 class LoginController extends AbstractActionController
 {
