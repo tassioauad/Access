@@ -26,6 +26,8 @@ class Module
         $role = new GenericRole($acl->getUserId());
         \Zend\View\Helper\Navigation::setDefaultRole($role);
 
+        $guard = $e->getApplication()->getServiceManager()->get('Access\Acl\Guard');
+        $e->getApplication()->getEventManager()->attach(MvcEvent::EVENT_DISPATCH, array($guard, 'canDispatch'), 1000);
 
         $e->getApplication()->getServiceManager()->get('translator');
         $eventManager        = $e->getApplication()->getEventManager();

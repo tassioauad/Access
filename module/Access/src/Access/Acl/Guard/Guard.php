@@ -38,10 +38,10 @@ class Guard implements EventManagerAwareInterface
         $action = $routeMatch->getParam('action', null);
 
         if (!$this->aclService->isAllowed($controller, $action) && $controller != 'denied') {
-            return false;
+            $controller = 'denied';
+            $action = 'index';
         }
 
-        return true;
     }
 
     /**
