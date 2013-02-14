@@ -3,7 +3,6 @@
 namespace Access\Controller\Plugin;
 
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
-use Zend\Permissions\Acl\Resource\GenericResource as Resource;
 use Access\Model;
 use \Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Access\Service\AclService;
@@ -11,6 +10,11 @@ use Access\Service\AclService;
 class AccessPlugin extends AbstractPlugin
 {
 
+    /**
+     * @param $username string
+     * @param $password string
+     * @return bool
+     */
     public function login($username, $password)
     {
         $authenticate = $this->getServiceLocator()->get('Access\Auth\Auth');
@@ -25,6 +29,9 @@ class AccessPlugin extends AbstractPlugin
         return false;
     }
 
+    /**
+     * Disconnect user in the session
+     */
     public function logout()
     {
         $this->getAclService()->setAcl(new \Access\Acl\Acl($this->getController()->getServiceLocator()));
@@ -35,16 +42,13 @@ class AccessPlugin extends AbstractPlugin
 
     public function isAllowed($resource, $privillege)
     {
-        $resource = new Resource($resource);
-        $isAllowed = $this->getAclService()->getAcl()->isAllowed($resource, $privillege);
-
-        if($isAllowed) {
-            return true;
-        }
-
-        return false;
+        return $this->getAclService()->isAllowed($resource, $privillege);
     }
 
+    /**
+     * @return \Zend\ServiceManager\ServiceLocatorInterface
+     * @throws \Exception
+     */
     protected function getServiceLocator()
     {
         $controller = $this->getController();
@@ -55,7 +59,10 @@ class AccessPlugin extends AbstractPlugin
         return $controller->getServiceLocator();
     }
 
-    public function getAclService()
+    /**
+     * @return AclService
+     */
+    protected function getAclService()
     {
         $aclService = $this->getServiceLocator()->get('Access\Service\AclService');
         return $aclService;

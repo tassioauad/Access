@@ -11,11 +11,21 @@ namespace Access;
 
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
+use Zend\Permissions\Acl\Role\GenericRole;
 
 class Module
 {
     public function onBootstrap(MvcEvent $e)
     {
+        /**
+         * @var $aclService Service\AclService
+         */
+        $aclService = $e->getApplication()->getServiceManager()->get('Access\Service\AclService');
+        $acl = $aclService->getAcl();
+        \Zend\View\Helper\Navigation::setDefaultAcl($acl);
+        $role = new GenericRole($acl->getUserId());
+        \Zend\View\Helper\Navigation::setDefaultRole($role);
+
         $e->getApplication()->getServiceManager()->get('translator');
         $eventManager        = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();

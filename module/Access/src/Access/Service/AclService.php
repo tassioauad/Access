@@ -4,6 +4,7 @@ namespace Access\Service;
 use \Zend\Session\Container as Session;
 use Zend\Permissions\Acl\Role\GenericRole;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\Permissions\Acl\Resource\GenericResource as Resource;
 
 class AclService
 {
@@ -17,6 +18,9 @@ class AclService
      */
     private $serviceManager;
 
+    /**
+     * @param \Zend\ServiceManager\ServiceLocatorInterface $sm
+     */
     function __construct(ServiceLocatorInterface $sm)
     {
         $this->serviceManager = $sm;
@@ -32,11 +36,12 @@ class AclService
         }
     }
 
+    /**
+     * @param \Access\Acl\Acl $acl
+     */
     public function setAcl(\Access\Acl\Acl $acl)
     {
-        $this->getSession()->acl = $acl; //TODO: ISSO AQUI NÃO É SEMPRE CHAMADO E SO É SETADO O DEFAULT ACL E ROLE SE CAIR AQUI!
-        \Zend\View\Helper\Navigation::setDefaultAcl($acl);
-        $this->setUserRole(new GenericRole($acl->getUserId()));
+        $this->getSession()->acl = $acl;
     }
 
     /**
@@ -69,9 +74,20 @@ class AclService
         return new GenericRole($this->getAcl()->getUserId());
     }
 
-    public function setUserRole(GenericRole $userRole)
+    /**
+     * @param $resource string
+     * @param $privillege string
+     * @return bool
+     */
+    public function isAllowed($resource, $privillege)
     {
-        $this->getAcl()->setUserId($userRole->getRoleId());
-        \Zend\View\Helper\Navigation::setDefaultRole($userRole);
+        $resource = new Resource($resource);
+        $isAllowed = $this->getAcl()->isAllowed($resource, $privillege);
+
+        if($isAllowed) {
+            return true;
+        }
+
+        return false;
     }
 }
