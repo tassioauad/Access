@@ -5,7 +5,7 @@ namespace Access\Controller\Plugin;
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 use Access\Model;
 use \Zend\ServiceManager\ServiceLocatorAwareInterface;
-use Access\Service\AclService;
+use Access\Acl\Service\Service as AclService;
 
 class AccessPlugin extends AbstractPlugin
 {
@@ -40,6 +40,11 @@ class AccessPlugin extends AbstractPlugin
         $this->getController()->redirect()->toRoute('access-login');
     }
 
+    /**
+     * @param $resource string
+     * @param $privillege string
+     * @return bool
+     */
     public function isAllowed($resource, $privillege)
     {
         return $this->getAclService()->isAllowed($resource, $privillege);
@@ -64,7 +69,7 @@ class AccessPlugin extends AbstractPlugin
      */
     protected function getAclService()
     {
-        $aclService = $this->getServiceLocator()->get('Access\Service\AclService');
+        $aclService = $this->getServiceLocator()->get('Access\Acl\Service');
         return $aclService;
     }
 }

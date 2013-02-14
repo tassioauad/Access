@@ -18,13 +18,14 @@ class Module
     public function onBootstrap(MvcEvent $e)
     {
         /**
-         * @var $aclService Service\AclService
+         * @var $aclService Acl\Service\Service
          */
-        $aclService = $e->getApplication()->getServiceManager()->get('Access\Service\AclService');
+        $aclService = $e->getApplication()->getServiceManager()->get('Access\Acl\Service');
         $acl = $aclService->getAcl();
         \Zend\View\Helper\Navigation::setDefaultAcl($acl);
         $role = new GenericRole($acl->getUserId());
         \Zend\View\Helper\Navigation::setDefaultRole($role);
+
 
         $e->getApplication()->getServiceManager()->get('translator');
         $eventManager        = $e->getApplication()->getEventManager();
@@ -51,8 +52,12 @@ class Module
     {
     	return array(
     			'factories' => array(
-                    'Access\Service\AclService' => function ($sm) {
-                        return new Service\AclService($sm);
+                    'Access\Acl\Service' => function ($sm) {
+                        return new Acl\Service\Service($sm);
+                    },
+                    'Access\Acl\Guard' => function ($sm) {
+                        $aclService = $sm->get('Access\Acl\Service');
+                        return new Acl\Guard\Guard($aclService);
                     },
                     /* Models */
                     'Access\Model\User' => function ($sm) {

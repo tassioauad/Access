@@ -1,12 +1,12 @@
 <?php
-namespace Access\Service;
+namespace Access\Acl\Service;
 
 use \Zend\Session\Container as Session;
 use Zend\Permissions\Acl\Role\GenericRole;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Permissions\Acl\Resource\GenericResource as Resource;
 
-class AclService
+class Service
 {
     /**
      * @var Session
