@@ -81,6 +81,13 @@ class Service
      */
     public function isAllowed($resource, $privillege)
     {
+        if ($resource == 'denied' ) {
+            return true;
+        }
+
+        $resource = strtoupper($resource);
+        $privillege = strtoupper($privillege);
+
         $resource = new Resource($resource);
         $isAllowed = $this->getAcl()->isAllowed($resource, $privillege);
 

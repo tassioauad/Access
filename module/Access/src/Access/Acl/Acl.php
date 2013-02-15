@@ -35,8 +35,6 @@ class Acl extends ZendAcl
 
         $this->userId = $user->getId();
 
-        $this->addRole(new GenericRole('GUESS'));
-
         foreach ($this->generateRoles($serviceLocator) as $role) {
             $this->addRole($role);
         }

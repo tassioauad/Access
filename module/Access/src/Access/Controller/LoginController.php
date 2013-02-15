@@ -10,6 +10,7 @@ class LoginController extends AbstractActionController
 {
     public function indexAction()
     {
+        return array();
         //$this->access()->login('auadtassio', md5('q1w2e3r4'));
         /*$result = $this->access()->isAllowed('LOGIN', 'ACESSAR');
         if (!$result) {
