@@ -89,7 +89,7 @@ class Service
         $privillege = strtoupper($privillege);
 
         $resource = new Resource($resource);
-        $isAllowed = $this->getAcl()->isAllowed($resource, $privillege);
+        $isAllowed = $this->getAcl()->isAllowed($this->getAcl()->getUserId(), $resource, $privillege);
 
         if($isAllowed) {
             return true;

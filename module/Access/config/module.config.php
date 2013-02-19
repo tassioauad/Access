@@ -103,7 +103,7 @@ return array(
                 'action'     => 'index',
                 'resource'   => 'LOGIN',
                 'privilege'  => 'INDEX',
-                'visible'    => false,
+                'visible'    => true,
             ),
         ),
     ),
