@@ -12,6 +12,16 @@ namespace Access;
 return array(
     'router' => array(
         'routes' => array(
+            'access-index' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/',
+                    'defaults' => array(
+                        'controller' => 'Access\Controller\Index',
+                        'action'     => 'index',
+                    ),
+                ),
+            ),
             'access-login' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
@@ -19,6 +29,16 @@ return array(
                     'defaults' => array(
                         'controller' => 'Access\Controller\Login',
                         'action'     => 'index',
+                    ),
+                ),
+            ),
+            'access-logout' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/login/logout',
+                    'defaults' => array(
+                        'controller' => 'Access\Controller\Login',
+                        'action'     => 'logout',
                     ),
                 ),
             ),
@@ -60,6 +80,7 @@ return array(
         'invokables' => array(
             'Access\Controller\Login' => 'Access\Controller\LoginController',
             'Access\Controller\Denied' => 'Access\Controller\DeniedController',
+            'Access\Controller\Index' => 'Access\Controller\IndexController',
         ),
     ),
     'view_manager' => array(
@@ -103,6 +124,15 @@ return array(
                 'action'     => 'index',
                 'resource'   => 'LOGIN',
                 'privilege'  => 'INDEX',
+                'visible'    => true,
+            ),
+            array(
+                'label'      => 'Log out',
+                'route'      => 'access-logout',
+                'controller' => 'login',
+                'action'     => 'logout',
+                'resource'   => 'LOGIN',
+                'privilege'  => 'LOGOUT',
                 'visible'    => true,
             ),
         ),

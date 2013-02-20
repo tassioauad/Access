@@ -81,11 +81,11 @@ class Service
      */
     public function isAllowed($resource, $privillege)
     {
-        if ($resource == 'denied' ) {
+        $resource = strtoupper($resource);
+        if ($resource == 'DENIED' || $resource == 'INDEX') {
             return true;
         }
 
-        $resource = strtoupper($resource);
         $privillege = strtoupper($privillege);
 
         $resource = new Resource($resource);

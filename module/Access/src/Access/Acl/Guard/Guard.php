@@ -57,7 +57,6 @@ class Guard implements EventManagerAwareInterface
             if (!empty($uri[2])) {
                 $action = $uri[2];
             }
-
             if (!empty($controller) && !empty($action)) {
                 if ($this->aclService->isAllowed($controller, $action) && $controller != 'denied') {
                     $path = '/'. $controller;

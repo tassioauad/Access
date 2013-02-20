@@ -18,6 +18,7 @@ class LoginController extends AbstractActionController
             $form->setData($_POST);
             if ($form->isValid()) {
                 $this->access()->login($_POST['login_fieldset']['username'], md5($_POST['login_fieldset']['password']));
+                $this->redirect()->toRoute('access-index');
             }
         }
 
