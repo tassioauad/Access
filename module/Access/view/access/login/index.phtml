@@ -33,12 +33,20 @@
 </style>
 <div class="container">
 
-    <form class="form-signin">
-        <h2 class="form-signin-heading">Sign in</h2>
-        <input type="text" class="input-block-level" placeholder="Username">
-        <input type="password" class="input-block-level" placeholder="Password">
-        <button class="btn btn-large btn-primary" type="submit">Sign in</button>
-    </form>
+    <?php
+        $form->prepare();
+        echo $this->form()->openTag($form);
+    ?>
+    <h2 class="form-signin-heading">Sign in</h2>
+    <?php
+        echo $this->formRow($form->get('login_fieldset')->get('username'));
+        echo $this->formRow($form->get('login_fieldset')->get('password'));
+
+        echo $this->formHidden($form->get('security'));
+
+        echo $this->formButton($form->get('submit'));
+    ?>
+
 
 </div>
 

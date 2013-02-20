@@ -11,7 +11,9 @@ class Login extends Form
         parent::__construct('login_form');
         $this->setAttribute('method', 'post')
             ->setAttribute("id", "login_form")
-            ->setAttribute("novalidate", 'true');
+            ->setAttribute("novalidate", 'true')
+            ->setAttribute("class", 'form-signin');
+
 
         $this->add(
             array(
@@ -37,7 +39,8 @@ class Login extends Form
 
                 ),
                 'attributes' => array(
-                    'type' => 'submit'
+                    'type' => 'submit',
+                    'class' => 'btn btn-large btn-primary'
                 )
             )
         );

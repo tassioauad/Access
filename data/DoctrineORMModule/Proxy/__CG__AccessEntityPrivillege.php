@@ -93,6 +93,18 @@ class Privillege extends \Access\Entity\Privillege implements \Doctrine\ORM\Prox
         return parent::toArray();
     }
 
+    public function setInputFilter(\Zend\InputFilter\InputFilterInterface $inputFilter)
+    {
+        $this->__load();
+        return parent::setInputFilter($inputFilter);
+    }
+
+    public function getInputFilter()
+    {
+        $this->__load();
+        return parent::getInputFilter();
+    }
+
 
     public function __sleep()
     {

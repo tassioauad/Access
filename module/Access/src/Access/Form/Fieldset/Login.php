@@ -11,18 +11,16 @@ class Login extends Fieldset
     function __construct()
     {
         parent::__construct('login_fieldset');
-
         $this->setHydrator(new ClassMethods(true))
             ->setObject(new Entity\User());
 
         $this->add(
             array(
                 'name' => 'username',
-                'options' => array(
-                    'label' => 'Username:'
-                ),
                 'attributes' => array(
-                    'required' => 'required'
+                    'required' => 'required',
+                    'class' => 'input-block-level',
+                    'placeholder' => 'username'
                 )
             )
         );
@@ -31,11 +29,10 @@ class Login extends Fieldset
             array(
                 'name' => 'password',
                 'type' => 'Zend\Form\Element\Password',
-                'options' => array(
-                    'label' => 'Password'
-                ),
                 'attributes' => array(
-                    'required' => 'required'
+                    'required' => 'required',
+                    'class' => 'input-block-level',
+                    'placeholder' => 'password'
                 )
             )
         );

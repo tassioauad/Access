@@ -3,6 +3,7 @@
 namespace Access\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Zend\InputFilter\Factory;
 
 /**
  * User
@@ -130,6 +131,25 @@ class User extends AbstractEntity
         return $this->username;
     }
 
+    public function getInputFilter()
+    {
+        if (null === $this->inputFilter) {
+            $factory = new Factory();
 
+            $this->inputFilter = $factory->createInputFilter(
+                array(
+                    'username' => array(
+                        'required' => true,
+                        'allow_empty' => false,
+                    ),
+                    'password' => array(
+                        'required' => true,
+                        'allow_empty' => false,
+                    )
+                )
+            );
+        }
 
+        return $this->inputFilter;
+    }
 }
