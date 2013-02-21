@@ -16,11 +16,11 @@ class Login extends Fieldset
 
         $this->add(
             array(
-                'name' => 'username',
+                'name' => 'email',
                 'attributes' => array(
                     'required' => 'required',
                     'class' => 'input-block-level',
-                    'placeholder' => 'username'
+                    'placeholder' => 'email'
                 )
             )
         );

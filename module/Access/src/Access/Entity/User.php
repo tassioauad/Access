@@ -33,9 +33,9 @@ class User extends AbstractEntity
     /**
      * @var string
      *
-     * @ORM\Column(name="username", type="string", length=20, nullable=false)
+     * @ORM\Column(name="email", type="string", length=20, nullable=false)
      */
-    private $username;
+    private $email;
 
     /**
      * @var string
@@ -116,19 +116,19 @@ class User extends AbstractEntity
     }
 
     /**
-     * @param string $username
+     * @param string $email
      */
-    public function setUsername($username)
+    public function setEmail($email)
     {
-        $this->username = $username;
+        $this->email = $email;
     }
 
     /**
      * @return string
      */
-    public function getUsername()
+    public function getEmail()
     {
-        return $this->username;
+        return $this->email;
     }
 
     public function getInputFilter()
@@ -138,6 +138,10 @@ class User extends AbstractEntity
 
             $this->inputFilter = $factory->createInputFilter(
                 array(
+                    'fullname' => array(
+                        'required' => true,
+                        'allow_empty' => false,
+                    ),
                     'username' => array(
                         'required' => true,
                         'allow_empty' => false,

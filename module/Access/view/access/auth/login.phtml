@@ -39,7 +39,7 @@
     ?>
     <h2 class="form-signin-heading">Sign in</h2>
     <?php
-        echo $this->formRow($form->get('login_fieldset')->get('username'));
+        echo $this->formRow($form->get('login_fieldset')->get('email'));
         echo $this->formRow($form->get('login_fieldset')->get('password'));
 
         echo $this->formHidden($form->get('security'));

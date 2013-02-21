@@ -49,7 +49,7 @@ class Login extends Form
             array(
                 'security',
                 'login_fieldset' => array(
-                    'username',
+                    'email',
                     'password'
                 )
             )

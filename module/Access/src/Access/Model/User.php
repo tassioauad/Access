@@ -2,6 +2,8 @@
 
 namespace Access\Model;
 
+use Access\Entity;
+
 class User extends AbstractModel
 {
     protected $entity = 'Access\Entity\User';
@@ -16,4 +18,15 @@ class User extends AbstractModel
         return $this->getRepository()->findAll();
     }
 
+    public function insert(Entity\User $user)
+    {
+        try {
+            $this->getEntityManager()->beginTransaction();
+            $this->getEntityManager()->persist($user);
+            $this->getEntityManager()->flush($user);
+            $this->getEntityManager()->commit();
+        } catch (\Exception $ex) {
+            $this->getEntityManager()->rollback();
+        }
+    }
 }

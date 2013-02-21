@@ -15,11 +15,11 @@ class AccessPlugin extends AbstractPlugin
      * @param $password string
      * @return bool
      */
-    public function login($username, $password)
+    public function login($email, $password)
     {
         $authenticate = $this->getServiceLocator()->get('Access\Auth\Auth');
 
-        $userEntity = $authenticate->isValid($username, $password);
+        $userEntity = $authenticate->isValid($email, $password);
 
         if ($userEntity) {
             $this->getAclService()->setAcl(new \Access\Acl\Acl($this->getServiceLocator(), $userEntity));

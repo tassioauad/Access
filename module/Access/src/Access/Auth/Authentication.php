@@ -34,7 +34,7 @@ class Authentication
                 array(
                     'objectManager' => $this->entityManager,
                     'identityClass' => 'Access\Entity\User',
-                    'identityProperty' => 'username',
+                    'identityProperty' => 'email',
                     'credentialProperty' => 'password',
                 )
             );
@@ -43,10 +43,10 @@ class Authentication
         return $this->authAdapter;
     }
 
-    public function isValid($username, $password)
+    public function isValid($email, $password)
     {
         $this->authAdapter = $this->buildAuthAdapter();
-        $this->authAdapter->setIdentityValue($username);
+        $this->authAdapter->setIdentityValue($email);
         $this->authAdapter->setCredentialValue($password);
 
         $authResult = $this->authAdapter->authenticate();
