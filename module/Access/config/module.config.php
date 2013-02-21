@@ -25,19 +25,19 @@ return array(
             'access-login' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
-                    'route'    => '/login',
+                    'route'    => '/auth/login',
                     'defaults' => array(
-                        'controller' => 'Access\Controller\Login',
-                        'action'     => 'index',
+                        'controller' => 'Access\Controller\Auth',
+                        'action'     => 'login',
                     ),
                 ),
             ),
             'access-logout' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
-                    'route'    => '/login/logout',
+                    'route'    => '/auth/logout',
                     'defaults' => array(
-                        'controller' => 'Access\Controller\Login',
+                        'controller' => 'Access\Controller\Auth',
                         'action'     => 'logout',
                     ),
                 ),
@@ -78,7 +78,7 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Access\Controller\Login' => 'Access\Controller\LoginController',
+            'Access\Controller\Auth' => 'Access\Controller\AuthController',
             'Access\Controller\Denied' => 'Access\Controller\DeniedController',
             'Access\Controller\Index' => 'Access\Controller\IndexController',
         ),
@@ -120,18 +120,18 @@ return array(
             array(
                 'label'      => 'Sign In',
                 'route'      => 'access-login',
-                'controller' => 'login',
-                'action'     => 'index',
-                'resource'   => 'LOGIN',
-                'privilege'  => 'INDEX',
+                'controller' => 'auth',
+                'action'     => 'login',
+                'resource'   => 'AUTH',
+                'privilege'  => 'LOGIN',
                 'visible'    => true,
             ),
             array(
                 'label'      => 'Log out',
                 'route'      => 'access-logout',
-                'controller' => 'login',
+                'controller' => 'auth',
                 'action'     => 'logout',
-                'resource'   => 'LOGIN',
+                'resource'   => 'AUTH',
                 'privilege'  => 'LOGOUT',
                 'visible'    => true,
             ),

@@ -3,14 +3,12 @@
 namespace Access\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use \Zend\View\Helper\ViewModel;
-use Zend\Session\Container as Session;
 use Access\Form;
 use Access\Entity;
 
-class LoginController extends AbstractActionController
+class AuthController extends AbstractActionController
 {
-    public function indexAction()
+    public function loginAction()
     {
         $form = new Form\Login;
 
