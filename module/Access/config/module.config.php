@@ -52,6 +52,26 @@ return array(
                     ),
                 ),
             ),
+            'access-create_account' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/account/create',
+                    'defaults' => array(
+                        'controller' => 'Access\Controller\Account',
+                        'action'     => 'create',
+                    ),
+                ),
+            ),
+            'access-my_account' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/account/manage',
+                    'defaults' => array(
+                        'controller' => 'Access\Controller\Account',
+                        'action'     => 'manage',
+                    ),
+                ),
+            ),
         ),
     ),
 
@@ -81,6 +101,7 @@ return array(
             'Access\Controller\Auth' => 'Access\Controller\AuthController',
             'Access\Controller\Denied' => 'Access\Controller\DeniedController',
             'Access\Controller\Index' => 'Access\Controller\IndexController',
+            'Access\Controller\Account' => 'Access\Controller\AccountController',
         ),
     ),
     'view_manager' => array(
@@ -124,6 +145,24 @@ return array(
                 'action'     => 'login',
                 'resource'   => 'AUTH',
                 'privilege'  => 'LOGIN',
+                'visible'    => true,
+            ),
+            array(
+                'label'      => 'Create Account',
+                'route'      => 'access-create_account',
+                'controller' => 'account',
+                'action'     => 'create',
+                'resource'   => 'ACCOUNT',
+                'privilege'  => 'CREATE',
+                'visible'    => true,
+            ),
+            array(
+                'label'      => 'My Account',
+                'route'      => 'access-my_account',
+                'controller' => 'account',
+                'action'     => 'manage',
+                'resource'   => 'ACCOUNT',
+                'privilege'  => 'MANAGE',
                 'visible'    => true,
             ),
             array(
