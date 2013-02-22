@@ -2,6 +2,8 @@
 
 namespace Access\Model;
 
+use Access\Entity;
+
 class UserRole extends AbstractModel
 {
     protected $entity = 'Access\Entity\UserRole';
@@ -19,5 +21,17 @@ class UserRole extends AbstractModel
     public function findAll()
     {
         return $this->getRepository()->findAll();
+    }
+
+    public function insert(Entity\UserRole $userRole)
+    {
+        try {
+            $this->getEntityManager()->beginTransaction();
+            $this->getEntityManager()->persist($userRole);
+            $this->getEntityManager()->flush($userRole);
+            $this->getEntityManager()->commit();
+        } catch (\Exception $ex) {
+            $this->getEntityManager()->rollback();
+        }
     }
 }

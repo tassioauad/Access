@@ -23,6 +23,13 @@ class AccountController extends AbstractActionController
                 $entityUser->setPassword(md5($entityUser->getPassword()));
                 $modelUser = $this->serviceLocator->get('Access\Model\User');
                 $modelUser->insert($entityUser);
+
+                $modelUserRole = $this->serviceLocator->get('Access\Model\UserRole');
+                $entityUserRole = new Entity\UserRole();
+                $entityUserRole->setRole($this->getRoleForCommonUsers());
+                $entityUserRole->setUser($entityUser);
+                $modelUserRole->insert($entityUserRole);
+
             }
         }
 
@@ -35,4 +42,10 @@ class AccountController extends AbstractActionController
     {
 
     }
+
+    public function getRoleForCommonUsers()
+    {
+        return $this->serviceLocator->get('Access\Model\Role')->find('3');
+    }
+
 }
