@@ -4,6 +4,8 @@ namespace Access\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Zend\InputFilter\Factory;
+use Zend\Validator;
+use Access\Form\Fieldset\Validator as MyValidators;
 
 /**
  * User
@@ -133,6 +135,29 @@ class User extends AbstractEntity
 
     public function getInputFilter()
     {
+        $identical = new Validator\Identical('repassword');
+        $identical->setMessages(
+            array(
+                Validator\Identical::NOT_SAME => "Campo senha e repetição de senha não coinscidem",
+            )
+        );
+
+        $stringLength = new Validator\StringLength(array('min' => 8, 'max' => null));
+        $stringLength->setMessage(
+            array(
+                Validator\StringLength::TOO_SHORT => "A senha possui menos de 8 caracteres"
+            )
+        );
+
+        $emailAddress = new Validator\EmailAddress();
+        $emailAddress->setMessage(
+            array(
+                Validator\EmailAddress::INVALID_FORMAT     => "E-mail com formato inválido."
+            )
+        );
+
+        $fullNameValidator = new MyValidators\FullNameValidator();
+
         if (null === $this->inputFilter) {
             $factory = new Factory();
 
@@ -141,14 +166,24 @@ class User extends AbstractEntity
                     'fullname' => array(
                         'required' => true,
                         'allow_empty' => false,
+                        'validators' => array(
+                            $fullNameValidator
+                        )
                     ),
-                    'username' => array(
+                    'email' => array(
                         'required' => true,
                         'allow_empty' => false,
+                        'validators' => array(
+                            $emailAddress
+                        )
                     ),
                     'password' => array(
                         'required' => true,
                         'allow_empty' => false,
+                        'validators' => array(
+                            $identical,
+                            $stringLength
+                        )
                     )
                 )
             );
