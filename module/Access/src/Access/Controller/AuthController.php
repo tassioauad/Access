@@ -10,6 +10,10 @@ class AuthController extends AbstractActionController
 {
     public function loginAction()
     {
+        /** @var $headStyle \Zend\View\Helper\HeadLink */
+        $headStyle = $this->getServiceLocator()->get('viewmanager')->getRenderer()->plugin('headLink');
+        $headStyle->appendStylesheet('/css/validator_messages.css');
+
         $form = new Form\Login();
 
         if($this->getRequest()->isPost()) {

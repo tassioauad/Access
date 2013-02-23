@@ -12,6 +12,10 @@ class AccountController extends AbstractActionController
 {
     public function createAction()
     {
+        /** @var $headStyle \Zend\View\Helper\HeadLink */
+        $headStyle = $this->getServiceLocator()->get('viewmanager')->getRenderer()->plugin('headLink');
+        $headStyle->appendStylesheet('/css/validator_messages.css');
+
         $form = new Form\CreateAccount();
         $entityUser = new Entity\User();
 
@@ -22,6 +26,12 @@ class AccountController extends AbstractActionController
                 $entityUser->setIsActive(true);
                 $entityUser->setPassword(md5($entityUser->getPassword()));
                 $modelUser = $this->serviceLocator->get('Access\Model\User');
+
+                $userWithSameEmail = $modelUser->findByEmail($entityUser->getEmail());
+                if (!empty($userWithSameEmail)) {
+
+                }
+
                 $modelUser->insert($entityUser);
 
                 $modelUserRole = $this->serviceLocator->get('Access\Model\UserRole');

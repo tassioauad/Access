@@ -135,7 +135,7 @@ class User extends AbstractEntity
 
     public function getInputFilter()
     {
-        $identical = new Validator\Identical('repassword');
+        $identical = new Validator\Identical('password');
         $identical->setMessages(
             array(
                 Validator\Identical::NOT_SAME => "Campo senha e repetição de senha não coinscidem",
@@ -181,8 +181,14 @@ class User extends AbstractEntity
                         'required' => true,
                         'allow_empty' => false,
                         'validators' => array(
-                            $identical,
                             $stringLength
+                        )
+                    ),
+                    'repassword' => array(
+                        'required' => true,
+                        'allow_empty' => false,
+                        'validators' => array(
+                            $identical,
                         )
                     )
                 )

@@ -35,7 +35,7 @@ class CreateAccount extends Form
             array(
                 'name' => 'submit',
                 'options' => array(
-                    'label' => 'Create Account'
+                    'label' => 'Create'
 
                 ),
                 'attributes' => array(
@@ -52,6 +52,7 @@ class CreateAccount extends Form
                     "fullname",
                     'email',
                     'password',
+                    'repassword'
                 )
             )
         );
