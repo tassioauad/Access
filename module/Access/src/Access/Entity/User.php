@@ -135,6 +135,13 @@ class User extends AbstractEntity
 
     public function getInputFilter()
     {
+        $notEmpty = new Validator\NotEmpty();
+        $notEmpty->setMessage(
+            array(
+                Validator\NotEmpty::IS_EMPTY => "Campo obrigatório.",
+            )
+        );
+
         $identical = new Validator\Identical('password');
         $identical->setMessages(
             array(
@@ -164,31 +171,27 @@ class User extends AbstractEntity
             $this->inputFilter = $factory->createInputFilter(
                 array(
                     'fullname' => array(
-                        'required' => true,
-                        'allow_empty' => false,
                         'validators' => array(
-                            $fullNameValidator
+                            $fullNameValidator,
+                            $notEmpty
                         )
                     ),
                     'email' => array(
-                        'required' => true,
-                        'allow_empty' => false,
                         'validators' => array(
-                            $emailAddress
+                            $emailAddress,
+                            $notEmpty
                         )
                     ),
                     'password' => array(
-                        'required' => true,
-                        'allow_empty' => false,
                         'validators' => array(
-                            $stringLength
+                            $stringLength,
+                            $notEmpty
                         )
                     ),
                     'repassword' => array(
-                        'required' => true,
-                        'allow_empty' => false,
                         'validators' => array(
                             $identical,
+                            $notEmpty
                         )
                     )
                 )
