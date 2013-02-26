@@ -3,7 +3,7 @@
 namespace Access\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use \Zend\View\Helper\ViewModel;
+use Zend\View\Helper\ViewModel;
 use Access\Form;
 use Access\Model;
 use Access\Entity;
@@ -28,18 +28,28 @@ class AccountController extends AbstractActionController
                 $modelUser = $this->serviceLocator->get('Access\Model\User');
 
                 $userWithSameEmail = $modelUser->findByEmail($entityUser->getEmail());
-                if (!empty($userWithSameEmail)) {
+                if (empty($userWithSameEmail)) {
+                    $modelUser->insert($entityUser);
 
+                    $modelUserRole = $this->serviceLocator->get('Access\Model\UserRole');
+                    $entityUserRole = new Entity\UserRole();
+                    $entityUserRole->setRole($this->getRoleForCommonUsers());
+                    $entityUserRole->setUser($entityUser);
+                    $modelUserRole->insert($entityUserRole);
+
+                    $this->messenger()->addMessage(
+                        "Conta criada com sucesso!",
+                        "success",
+                        2
+                    );
+
+                    $this->redirect()->toRoute('access-login');
+                } else {
+                    $this->messenger()->addMessage(
+                        "E-mail já utilizado por outro usuário",
+                        "error"
+                    );
                 }
-
-                $modelUser->insert($entityUser);
-
-                $modelUserRole = $this->serviceLocator->get('Access\Model\UserRole');
-                $entityUserRole = new Entity\UserRole();
-                $entityUserRole->setRole($this->getRoleForCommonUsers());
-                $entityUserRole->setUser($entityUser);
-                $modelUserRole->insert($entityUserRole);
-
             }
         }
 

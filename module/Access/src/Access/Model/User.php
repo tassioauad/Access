@@ -13,6 +13,11 @@ class User extends AbstractModel
         return $this->getRepository()->findBy(array('id' => $id, 'ativo' => true))[0];
     }
 
+    public function findByEmail($emailAddress)
+    {
+        return $this->getRepository()->findBy(array('email' => $emailAddress))[0];
+    }
+
     public function findAll()
     {
         return $this->getRepository()->findAll();
