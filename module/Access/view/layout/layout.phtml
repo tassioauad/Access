@@ -23,10 +23,26 @@
                 </div>
             </div>
         </div>
+
+        <?php
+            if($this->messenger()->hasMessages()):
+                if($this->messenger()->hasMessages(Messenger\Helper\MessengerHelper::ERRO)):
+        ?>
+        <div id="messages" class="alert alert-error">
+            <?php echo $this->messenger()->getMessagesAsString(Messenger\Helper\MessengerHelper::ERRO); ?>
         </div>
+        <?php
+                endif;
+                if($this->messenger()->hasMessages(Messenger\Helper\MessengerHelper::SUCESSO)):
+        ?>
+        <div id="messages" class="alert alert-success">
+            <?php echo $this->messenger()->getMessagesAsString(Messenger\Helper\MessengerHelper::SUCESSO); ?>
+        </div>
+        <?php
+                endif;
+            endif;
+        ?>
+
         <?php echo $this->content; ?>
-        <footer id="copyright">
-            <p>&copy; Access 2012</p>
-        </footer>
     </body>
 </html>

@@ -4,6 +4,7 @@ return array(
     	'DoctrineORMModule',
     	'DoctrineModule',
         'Access',
+        'Messenger'
     ),
     'module_listener_options' => array(
         'config_glob_paths'    => array(
