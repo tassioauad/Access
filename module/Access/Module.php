@@ -100,4 +100,17 @@ class Module
     			),
     	);
     }
+
+    public function getViewHelperConfig()
+    {
+        return array(
+            'factories' => array(
+                'access' => function ($sm) {
+                    $viewHelper = new ViewHelper\AccessViewHelper($sm);
+                    return $viewHelper;
+                },
+            ),
+        );
+
+    }
 }

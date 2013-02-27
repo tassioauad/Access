@@ -23,7 +23,7 @@ class AccountController extends AbstractActionController
             $form->bind($entityUser);
             $form->setData($_POST);
             if ($form->isValid()) {
-                $entityUser->setIsActive(true);
+                $entityUser->setActive(true);
                 $entityUser->setPassword(md5($entityUser->getPassword()));
                 $modelUser = $this->serviceLocator->get('Access\Model\User');
 

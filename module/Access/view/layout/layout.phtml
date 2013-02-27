@@ -7,6 +7,7 @@
         <meta name="description" content="Access ZF2 Module">
         <meta name="author" content="Tássio de Oliveira Silva Auad">
         <link href="/css/bootstrap/bootstrap.css" rel="stylesheet">
+        <link href="/css/layout.css" rel="stylesheet">
         <link href="/css/bootstrap/bootstrap-responsive.css" rel="stylesheet">
         <?php echo $this->headLink(); ?>
         <?php echo $this->headScript(); ?>
@@ -17,7 +18,17 @@
             <div class="navbar-inner">
                 <div class="container">
                     <a class="brand" href="#">Access</a>
-                    <div class="nav-collapse collapse navbar-inverse-collapse">
+                    <?php
+                    $loggedUser = $this->access()->getUser();
+                    if(!empty($loggedUser)):
+                    ?>
+                    <div id="user" class="nav-collapse collapse navbar-collapse">
+                        <ul class="nav pull-left">
+                            <li><img id="user-photo" class="img-circle" src='<?= $this->access()->getUser()->getPhoto(); ?>' /><a><?=$this->access()->getUser()->getFullName(); ?></a></li>
+                        </ul>
+                    </div>
+                    <?php endif; ?>
+                    <div id="main-menu" class="nav-collapse collapse navbar-inverse-collapse">
                         <?php echo $this->navigation('navigation')->menu()->setUlClass('nav pull-right') ?>
                     </div>
                 </div>
@@ -29,14 +40,18 @@
                 if($this->messenger()->hasMessages(Messenger\Helper\MessengerHelper::ERRO)):
         ?>
         <div id="messages" class="alert alert-error">
-            <?php echo $this->messenger()->getMessagesAsString(Messenger\Helper\MessengerHelper::ERRO); ?>
+            <p class="message">
+                <?php echo $this->messenger()->getMessagesAsString(Messenger\Helper\MessengerHelper::ERRO); ?>
+            </p>
         </div>
         <?php
                 endif;
                 if($this->messenger()->hasMessages(Messenger\Helper\MessengerHelper::SUCESSO)):
         ?>
         <div id="messages" class="alert alert-success">
-            <?php echo $this->messenger()->getMessagesAsString(Messenger\Helper\MessengerHelper::SUCESSO); ?>
+            <p class="message">
+                <?php echo $this->messenger()->getMessagesAsString(Messenger\Helper\MessengerHelper::SUCESSO); ?>
+            </p>
         </div>
         <?php
                 endif;

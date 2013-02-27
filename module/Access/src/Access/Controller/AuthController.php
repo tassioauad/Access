@@ -26,6 +26,11 @@ class AuthController extends AbstractActionController
 
                 if($isLogged) {
                     $this->redirect()->toRoute('access-index');
+                } else {
+                    $this->messenger()->addMessage(
+                        "E-mail e/ou senha inválido(s).",
+                        "error"
+                    );
                 }
 
             }
@@ -40,6 +45,12 @@ class AuthController extends AbstractActionController
     public function logoutAction()
     {
         $this->access()->logout();
+
+        $this->messenger()->addMessage(
+            "Logout efetuado com sucesso!",
+            "success",
+            2
+        );
 
         return array();
     }

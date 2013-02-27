@@ -16,7 +16,7 @@ class Service
     /**
      * @var ServiceLocatorInterface
      */
-    private $serviceManager;
+    protected $serviceManager;
 
     /**
      * @param \Zend\ServiceManager\ServiceLocatorInterface $sm

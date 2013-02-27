@@ -139,6 +139,13 @@ return array(
     'navigation' => array(
         'default' => array(
             array(
+                'label'      => 'Home',
+                'route'      => 'access-index',
+                'controller' => 'index',
+                'action'     => 'index',
+                'visible'    => true,
+            ),
+            array(
                 'label'      => 'Sign In',
                 'route'      => 'access-login',
                 'controller' => 'auth',

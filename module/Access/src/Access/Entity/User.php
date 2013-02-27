@@ -47,11 +47,18 @@ class User extends AbstractEntity
     private $password;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="src_imagem", type="text")
+     */
+    private $photo;
+
+    /**
      * @var boolean
      *
-     * @ORM\Column(name="ativo", type="boolean", nullable=false)
+     * @ORM\Column(name="ativo", type="boolean")
      */
-    private $isActive;
+    private $active;
 
     /**
      * @param string $fullName
@@ -86,11 +93,11 @@ class User extends AbstractEntity
     }
 
     /**
-     * @param boolean $isActive
+     * @param boolean $active
      */
-    public function setIsActive($isActive)
+    public function setActive($active)
     {
-        $this->isActive = $isActive;
+        $this->active = $active;
     }
 
     /**
@@ -98,7 +105,7 @@ class User extends AbstractEntity
      */
     public function isActive()
     {
-        return $this->isActive;
+        return $this->active;
     }
 
     /**
@@ -131,6 +138,22 @@ class User extends AbstractEntity
     public function getEmail()
     {
         return $this->email;
+    }
+
+    /**
+     * @param string $photo
+     */
+    public function setPhoto($photo)
+    {
+        $this->photo = $photo;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPhoto()
+    {
+        return $this->photo;
     }
 
     public function getInputFilter()

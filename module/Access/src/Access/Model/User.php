@@ -10,7 +10,12 @@ class User extends AbstractModel
 
     public function find($id)
     {
-        return $this->getRepository()->findBy(array('id' => $id, 'ativo' => true))[0];
+        $usuario = $this->getRepository()->findBy(array('id' => $id))[0];
+        if (empty($usuario) || !$usuario->isActive()) {
+            return null;
+        }
+
+        return $usuario;
     }
 
     public function findByEmail($emailAddress)
@@ -25,6 +30,20 @@ class User extends AbstractModel
 
     public function insert(Entity\User $user)
     {
+        if (empty($user)) {
+            throw new \Exception("The user's entity is Empty and could not be inserted");
+        }
+
+        $photo = $user->getPhoto();
+        if (empty($photo)) {
+            $user->setPhoto('/images/users_photo/default.gif');
+        }
+
+        $isActive = $user->isActive();
+        if (empty($isActive)) {
+            $user->setActive(false);
+        }
+
         try {
             $this->getEntityManager()->beginTransaction();
             $this->getEntityManager()->persist($user);
@@ -32,6 +51,7 @@ class User extends AbstractModel
             $this->getEntityManager()->commit();
         } catch (\Exception $ex) {
             $this->getEntityManager()->rollback();
+            throw $ex;
         }
     }
 }
