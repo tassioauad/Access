@@ -17,6 +17,8 @@ class Module
 {
     public function onBootstrap(MvcEvent $e)
     {
+        date_default_timezone_set('America/Sao_Paulo');
+
         /**
          * @var $aclService Acl\Service\Service
          */

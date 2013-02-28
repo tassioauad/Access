@@ -72,4 +72,11 @@ class AccessPlugin extends AbstractPlugin
         $aclService = $this->getServiceLocator()->get('Access\Acl\Service');
         return $aclService;
     }
+
+    public function getUser()
+    {
+        $userRole = $this->getAclService()->getUserRole();
+        $userModel = $this->getServiceLocator()->get('Access\Model\User');
+        return $userModel->find($userRole);
+    }
 }

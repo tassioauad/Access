@@ -35,7 +35,7 @@ class AccountController extends AbstractActionController
                     $entityUserRole = new Entity\UserRole();
                     $entityUserRole->setRole($this->getRoleForCommonUsers());
                     $entityUserRole->setUser($entityUser);
-                    $modelUserRole->insert($entityUserRole);
+                    $modelUserRole->save($entityUserRole);
 
                     $this->messenger()->addMessage(
                         "Conta criada com sucesso!",
@@ -58,9 +58,39 @@ class AccountController extends AbstractActionController
         );
     }
 
-    public function manageAction()
+    public function perfilAction()
     {
+        return array(
+            'user' => $this->access()->getUser()
+        );
+    }
 
+    public function editAction()
+    {
+        $userLogged = $this->access()->getUser();
+
+        $form = new Form\EditAccount();
+        $form->bind($userLogged);
+        if ($this->getRequest()->isPost()) {
+            $form->setData($_POST);
+            if ($form->isValid()) {
+                $userLogged->setPassword(md5($userLogged->getPassword()));
+                $modelUser = $this->serviceLocator->get('Access\Model\User');
+                $modelUser->save($userLogged);
+
+                $this->messenger()->addMessage(
+                    "Conta alterada com sucesso!",
+                    "success",
+                    2
+                );
+
+                $this->redirect()->toRoute('access-account-perfil');
+            }
+        }
+
+        return array(
+            'form' => $form
+        );
     }
 
     public function getRoleForCommonUsers()

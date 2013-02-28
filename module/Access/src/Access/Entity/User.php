@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Zend\InputFilter\Factory;
 use Zend\Validator;
 use Access\Form\Fieldset\Validator as MyValidators;
+use Access\Utils;
 
 /**
  * User
@@ -30,7 +31,7 @@ class User extends AbstractEntity
      *
      * @ORM\Column(name="nome_completo", type="string", length=50, nullable=false)
      */
-    private $fullName;
+    private $fullname;
 
     /**
      * @var string
@@ -54,6 +55,13 @@ class User extends AbstractEntity
     private $photo;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="data_criacao", type="string")
+     */
+    private $createdAt;
+
+    /**
      * @var boolean
      *
      * @ORM\Column(name="ativo", type="boolean")
@@ -61,19 +69,19 @@ class User extends AbstractEntity
     private $active;
 
     /**
-     * @param string $fullName
+     * @param string $fullname
      */
-    public function setFullName($fullName)
+    public function setFullname($fullname)
     {
-        $this->fullName = $fullName;
+        $this->fullname = $fullname;
     }
 
     /**
      * @return string
      */
-    public function getFullName()
+    public function getFullname()
     {
-        return $this->fullName;
+        return $this->fullname;
     }
 
     /**
@@ -154,6 +162,27 @@ class User extends AbstractEntity
     public function getPhoto()
     {
         return $this->photo;
+    }
+
+    /**
+     * @param \DateTime $createAt
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    public function getCreatedAtBR()
+    {
+        return Utils\Utils::DateToBr($this->createdAt);
     }
 
     public function getInputFilter()

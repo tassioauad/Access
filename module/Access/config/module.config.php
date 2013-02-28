@@ -62,13 +62,23 @@ return array(
                     ),
                 ),
             ),
-            'access-my_account' => array(
+            'access-account-perfil' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
-                    'route'    => '/account/manage',
+                    'route'    => '/account/perfil',
                     'defaults' => array(
                         'controller' => 'Access\Controller\Account',
-                        'action'     => 'manage',
+                        'action'     => 'perfil',
+                    ),
+                ),
+            ),
+            'access-account-edit' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/account/edit',
+                    'defaults' => array(
+                        'controller' => 'Access\Controller\Account',
+                        'action'     => 'edit',
                     ),
                 ),
             ),
@@ -165,12 +175,23 @@ return array(
             ),
             array(
                 'label'      => 'My Account',
-                'route'      => 'access-my_account',
+                'route'      => 'access-account-perfil',
                 'controller' => 'account',
-                'action'     => 'manage',
+                'action'     => 'perfil',
                 'resource'   => 'ACCOUNT',
-                'privilege'  => 'MANAGE',
+                'privilege'  => 'PERFIL',
                 'visible'    => true,
+                'pages' => array(
+                    array(
+                        'label'      => 'Edit My Account',
+                        'route'      => 'access-account-edit',
+                        'controller' => 'account',
+                        'action'     => 'edit',
+                        'resource'   => 'ACCOUNT',
+                        'privilege'  => 'EDIT',
+                        'visible'    => false,
+                    ),
+                )
             ),
             array(
                 'label'      => 'Log out',

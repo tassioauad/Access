@@ -28,7 +28,7 @@ class User extends AbstractModel
         return $this->getRepository()->findAll();
     }
 
-    public function insert(Entity\User $user)
+    public function save(Entity\User $user)
     {
         if (empty($user)) {
             throw new \Exception("The user's entity is Empty and could not be inserted");
