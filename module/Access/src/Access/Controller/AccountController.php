@@ -67,6 +67,10 @@ class AccountController extends AbstractActionController
 
     public function editAction()
     {
+        /** @var $headStyle \Zend\View\Helper\HeadLink */
+        $headStyle = $this->getServiceLocator()->get('viewmanager')->getRenderer()->plugin('headLink');
+        $headStyle->appendStylesheet('/css/validator_messages.css');
+        
         $userLogged = $this->access()->getUser();
 
         $form = new Form\EditAccount();
