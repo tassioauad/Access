@@ -47,7 +47,7 @@ class User extends AbstractModel
         try {
             $this->getEntityManager()->beginTransaction();
             $this->getEntityManager()->persist($user);
-            $this->getEntityManager()->flush($user);
+            $this->getEntityManager()->flush();
             $this->getEntityManager()->commit();
         } catch (\Exception $ex) {
             $this->getEntityManager()->rollback();

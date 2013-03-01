@@ -39,33 +39,6 @@ class EditAccount extends Fieldset
                 )
             )
         );
-
-        $this->add(
-            array(
-                'name' => 'password',
-                'options' => array(
-                    'label' => 'Password:'
-                ),
-                'type' => 'Zend\Form\Element\Password',
-                'attributes' => array(
-                    'required' => 'required',
-                    'class' => 'input-block-level'
-                )
-            )
-        );
-        $this->add(
-            array(
-                'name' => 'repassword',
-                'options' => array(
-                    'label' => 'Password Again:'
-                ),
-                'type' => 'Zend\Form\Element\Password',
-                'attributes' => array(
-                    'required' => 'required',
-                    'class' => 'input-block-level'
-                )
-            )
-        );
     }
 
 }

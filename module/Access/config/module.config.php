@@ -82,6 +82,16 @@ return array(
                     ),
                 ),
             ),
+            'access-accountpassword-edit' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/account/editpassword',
+                    'defaults' => array(
+                        'controller' => 'Access\Controller\Account',
+                        'action'     => 'editpassword',
+                    ),
+                ),
+            ),
         ),
     ),
 
@@ -189,6 +199,15 @@ return array(
                         'action'     => 'edit',
                         'resource'   => 'ACCOUNT',
                         'privilege'  => 'EDIT',
+                        'visible'    => false,
+                    ),
+                    array(
+                        'label'      => 'Change Password',
+                        'route'      => 'access-accountpassword-edit',
+                        'controller' => 'account',
+                        'action'     => 'editpassword',
+                        'resource'   => 'ACCOUNT',
+                        'privilege'  => 'EDITPASSWORD',
                         'visible'    => false,
                     ),
                 )

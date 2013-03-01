@@ -4,20 +4,20 @@ namespace Access\Form;
 
 use \Zend\Form\Form;
 
-class EditAccount extends Form
+class EditAccountPassword extends Form
 {
     function __construct()
     {
-        parent::__construct('editacount_form');
+        parent::__construct('editacountpassword_form');
         $this->setAttribute('method', 'post')
-            ->setAttribute("id", "editaccount-form")
+            ->setAttribute("id", "editaccountpassword-form")
             ->setAttribute("novalidate", 'true')
-            ->setAttribute("class", 'form-editaccount');
+            ->setAttribute("class", 'form-editaccountpassword');
 
 
         $this->add(
             array(
-                'type' => 'Access\Form\Fieldset\EditAccount',
+                'type' => 'Access\Form\Fieldset\EditAccountPassword',
                 'options' => array(
                     'use_as_base_fieldset' => true
                 )
@@ -35,7 +35,7 @@ class EditAccount extends Form
             array(
                 'name' => 'submit',
                 'options' => array(
-                    'label' => 'Edit'
+                    'label' => 'Change'
 
                 ),
                 'attributes' => array(
@@ -48,9 +48,9 @@ class EditAccount extends Form
         $this->setValidationGroup(
             array(
                 'security',
-                'editaccount_fieldset' => array(
-                    "fullname",
-                    'email',
+                'editaccountpassword_fieldset' => array(
+                    'password',
+                    'repassword'
                 )
             )
         );

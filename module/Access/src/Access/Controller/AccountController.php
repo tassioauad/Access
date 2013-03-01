@@ -23,8 +23,8 @@ class AccountController extends AbstractActionController
             $form->bind($entityUser);
             $form->setData($_POST);
             if ($form->isValid()) {
+                $entityUser->setPassword(md5($entityUser->getPassword())); //TODO : AQUI
                 $entityUser->setActive(true);
-                $entityUser->setPassword(md5($entityUser->getPassword()));
                 $modelUser = $this->serviceLocator->get('Access\Model\User');
 
                 $userWithSameEmail = $modelUser->findByEmail($entityUser->getEmail());
@@ -70,7 +70,7 @@ class AccountController extends AbstractActionController
         /** @var $headStyle \Zend\View\Helper\HeadLink */
         $headStyle = $this->getServiceLocator()->get('viewmanager')->getRenderer()->plugin('headLink');
         $headStyle->appendStylesheet('/css/validator_messages.css');
-        
+
         $userLogged = $this->access()->getUser();
 
         $form = new Form\EditAccount();
@@ -78,7 +78,6 @@ class AccountController extends AbstractActionController
         if ($this->getRequest()->isPost()) {
             $form->setData($_POST);
             if ($form->isValid()) {
-                $userLogged->setPassword(md5($userLogged->getPassword()));
                 $modelUser = $this->serviceLocator->get('Access\Model\User');
                 $modelUser->save($userLogged);
 
@@ -89,6 +88,46 @@ class AccountController extends AbstractActionController
                 );
 
                 $this->redirect()->toRoute('access-account-perfil');
+            }
+        }
+
+        return array(
+            'form' => $form
+        );
+    }
+
+    public function editpasswordAction()
+    {
+        /** @var $headStyle \Zend\View\Helper\HeadLink */
+        $headStyle = $this->getServiceLocator()->get('viewmanager')->getRenderer()->plugin('headLink');
+        $headStyle->appendStylesheet('/css/validator_messages.css');
+
+        $userLogged = $this->access()->getUser();
+
+        $form = new Form\EditAccountPassword();
+        $form->bind(new Entity\User());
+        if ($this->getRequest()->isPost()) {
+            $form->setData($_POST);
+            if ($form->isValid()) {
+
+                if ($userLogged->getPassword() != md5($_POST['editaccountpassword_fieldset']['oldpassword'])) { //TODO : AQUI
+                    $this->messenger()->addMessage(
+                        "Senha antiga não confere.",
+                        "error"
+                    );
+                } else {
+                    $userLogged->setPassword(md5($_POST['editaccountpassword_fieldset']['password'])); //TODO : AQUI
+                    $modelUser = $this->serviceLocator->get('Access\Model\User');
+                    $modelUser->save($userLogged);
+
+                    $this->messenger()->addMessage(
+                        "Senha alterada com sucesso!",
+                        "success",
+                        2
+                    );
+
+                    $this->redirect()->toRoute('access-account-perfil');
+                }
             }
         }
 

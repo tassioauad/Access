@@ -26,7 +26,8 @@
         width: 200px;
     }
 
-    #perfil #title a {
+    #perfil #action-btns {
+        margin-left:40px;
         margin-top:15px;
     }
 
@@ -36,8 +37,17 @@
     <section id="perfil">
         <head>
             <section id="title" class="row-fluid">
-                <span class="span10"><h2 class="form-createaccount-heading">My Account</h2></span>
-                <span class="span2"><a href="<?= $this->url('access-account-edit') ?>" class="btn btn-primary">Edit</a></span>
+                <span class="span7"><h2 class="form-createaccount-heading">My Account</h2></span>
+                <span class="span5">
+                    <div id="action-btns" class="btn-group">
+                        <a class="btn btn-primary" href="#"><i class="icon-edit icon-white"></i> Edit</a>
+                        <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="<?= $this->url('access-account-edit') ?>"><i class="icon-user"></i> Edit Perfil</a></li>
+                            <li><a href="<?= $this->url('access-accountpassword-edit') ?>"><i class="icon-lock"></i> Change Password</a></li>
+                        </ul>
+                    </div>
+                </span>
             </section>
             <img class="img-polaroid" src="<?= $user->getPhoto() ?>" />
         </head>
