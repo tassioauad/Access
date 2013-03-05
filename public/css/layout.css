@@ -1,3 +1,15 @@
+#main-menu {
+    margin-bottom: 0px;
+}
+
+#breadcrumbs ul {
+    margin-top: 10px;
+}
+
+#breadcrumbs ul li a{
+    color : black;
+}
+
 #user {
     margin-left: 30%;
 }

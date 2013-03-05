@@ -1,0 +1,15 @@
+<ul>
+    <li><i class="icon-home"></i><a href="<?php echo $this->url('access-index'); ?>">Home</a></li>
+<?php 
+    foreach($this->pages as $page): 
+?>
+        <?php
+        $class = $page->getClass();
+        if(!empty($class)) $class = ' class="'.$class.'" ';
+        ?>
+        <li class="break">&#187;</li>
+        <li <?php echo $class ?>><a href="<?php echo $page->getHref() ?>"><?php echo $page->getLabel() ?></a></li>
+<?php
+    endforeach;
+?>
+</ul>

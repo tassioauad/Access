@@ -133,6 +133,7 @@ return array(
         'template_map' => array(
             'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
             'access/index/index' => __DIR__ . '/../view/access/index/index.phtml',
+            'access/breadcrumbs' => __DIR__ . '/../view/layout/breadcrumbs.phtml',
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
         ),

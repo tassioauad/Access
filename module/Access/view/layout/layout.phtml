@@ -39,7 +39,17 @@
                 </div>
             </div>
         </div>
-
+        <div id="breadcrumbs" class="navbar">
+            <div class="navbar-inner">
+                <?php
+                    echo $this->navigation('navigation')->breadcrumbs()
+                        ->setRenderInvisible(true)
+                        ->setLinkLast(true)
+                        ->setMinDepth(1)
+                        ->setPartial('access/breadcrumbs');
+                ?>
+            </div>
+        </div>
         <?php
             if($this->messenger()->hasMessages()):
                 if($this->messenger()->hasMessages(Messenger\Helper\MessengerHelper::ERRO)):
