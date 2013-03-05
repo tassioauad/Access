@@ -29,6 +29,21 @@ class EditAccount extends Fieldset
 
         $this->add(
             array(
+                'name' => 'photo',
+                'type' => 'Zend\Form\Element\File',
+                'options' => array(
+                    'label' => 'Select a new photo:'
+                ),
+                'attributes' => array(
+                    'required' => 'required',
+                    'class' => 'input-block-level'
+                )
+            )
+        );
+
+
+        $this->add(
+            array(
                 'name' => 'email',
                 'options' => array(
                     'label' => 'Email:'

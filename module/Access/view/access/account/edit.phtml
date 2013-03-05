@@ -40,6 +40,7 @@
     <h2 class="form-editaccount-heading">Edit Account</h2>
     <?php
     echo $this->formRow($form->get('editaccount_fieldset')->get('fullname'));
+    echo $this->formRow($form->get('editaccount_fieldset')->get('photo'));
     echo $this->formRow($form->get('editaccount_fieldset')->get('email'));
 
     echo $this->formHidden($form->get('security'));

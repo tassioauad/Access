@@ -50,6 +50,7 @@ class EditAccount extends Form
                 'security',
                 'editaccount_fieldset' => array(
                     "fullname",
+                    "photo",
                     'email',
                 )
             )

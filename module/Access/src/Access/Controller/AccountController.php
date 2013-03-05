@@ -78,6 +78,22 @@ class AccountController extends AbstractActionController
         if ($this->getRequest()->isPost()) {
             $form->setData($_POST);
             if ($form->isValid()) {
+
+                if (!empty($_FILES['editaccount_fieldset']['tmp_name']['photo'])) {
+                    try {
+                        $uploadPhotoInfos = $this->getUploadPhotoInfos();
+                    } catch( \Exception $ex) {
+                        $this->messenger()->addMessage(
+                            $ex->getMessage(),
+                            "error",
+                            2
+                        );
+                    }
+
+                    move_uploaded_file($_FILES['editaccount_fieldset']['tmp_name']['photo'], $uploadPhotoInfos['projectDestinationPath']);
+                    $userLogged->setPhoto($uploadPhotoInfos['dbDestinationPath']);
+                }
+
                 $modelUser = $this->serviceLocator->get('Access\Model\User');
                 $modelUser->save($userLogged);
 
@@ -139,6 +155,46 @@ class AccountController extends AbstractActionController
     public function getRoleForCommonUsers()
     {
         return $this->serviceLocator->get('Access\Model\Role')->find('3');
+    }
+
+    public function getUploadPhotoInfos()
+    {
+        $photoExtension = '';
+        switch($_FILES['editaccount_fieldset']['type']['photo']) {
+            case 'image/jpeg' :
+                $photoExtension = '.jpg';
+                break;
+            case 'image/gif' :
+                $photoExtension = '.gif';
+                break;
+            case 'image/png' :
+                $photoExtension = '.png';
+                break;
+            default :
+                throw new \Exception('Tipo de imagem não suportado');
+                break;
+        }
+
+        $userNameArray = explode(" ", $this->access()->getUser()->getFullname()); //TODO : REMOVER ACENTOS
+        $photoName = strtolower($userNameArray[0] . $userNameArray[1]) . rand(0, 999999999) . $photoExtension;
+
+        $arrayDIR = explode("\\", __DIR__);
+        $destinationPath = "";
+        foreach ($arrayDIR as $folder) {
+            if ($folder == 'module') {
+                break;
+            }
+            $destinationPath .= $folder . '/';
+        }
+
+        $destinationPath .= 'public/images/users_photo/' . $photoName;
+
+        $photoInfo = array(
+            'name' => $photoName,
+            'projectDestinationPath' => $destinationPath,
+            'dbDestinationPath' => '/images/users_photo/' . $photoName
+        );
+        return $photoInfo;
     }
 
 }
