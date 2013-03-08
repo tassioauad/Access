@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Allow
  *
- * @ORM\Table(name="grupo_transacao")
+ * @ORM\Table(name="allow")
  * @ORM\Entity
  */
 class Allow extends AbstractEntity
@@ -18,7 +18,7 @@ class Allow extends AbstractEntity
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="SEQUENCE")
-     * @ORM\SequenceGenerator(sequenceName="grupo_transacao_id_seq", allocationSize=1, initialValue=1)
+     * @ORM\SequenceGenerator(sequenceName="allow_id_seq", allocationSize=1, initialValue=1)
      */
     private $id;
 
@@ -26,33 +26,17 @@ class Allow extends AbstractEntity
      * @var Role
      *
      * @ORM\OneToOne(targetEntity="Access\Entity\Role")
-     * @ORM\JoinColumn(name="grupoid", referencedColumnName="id")
+     * @ORM\JoinColumn(name="roleid", referencedColumnName="id")
      */
     private $role;
 
     /**
-     * @var Resource
+     * @var ResourcePrivillege
      *
-     * @ORM\OneToOne(targetEntity="Access\Entity\Resource")
-     * @ORM\JoinColumn(name="transacaoid", referencedColumnName="id")
+     * @ORM\OneToOne(targetEntity="Access\Entity\ResourcePrivillege")
+     * @ORM\JoinColumn(name="controller_actionid", referencedColumnName="id")
      */
-    private $resource;
-
-    /**
-     * @var Privillege
-     *
-     * @ORM\OneToOne(targetEntity="Access\Entity\Privillege")
-     * @ORM\JoinColumn(name="permissaoid", referencedColumnName="id")
-     */
-    private $privillege;
-
-    /**
-     * @param int $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
+    private $resource_privilege;
 
     /**
      * @return int
@@ -63,35 +47,27 @@ class Allow extends AbstractEntity
     }
 
     /**
-     * @param \Access\Entity\Privillege $privillege
+     * @param int $id
      */
-    public function setPrivillege($privillege)
+    public function setId($id)
     {
-        $this->privillege = $privillege;
+        $this->id = $id;
     }
 
     /**
-     * @return \Access\Entity\Privillege
+     * @param ResourcePrivillege $resource_privilege
      */
-    public function getPrivillege()
+    public function setResourcePrivilege($resource_privilege)
     {
-        return $this->privillege;
+        $this->resource_privilege = $resource_privilege;
     }
 
     /**
-     * @param Resource $resource
+     * @return ResourcePrivillege
      */
-    public function setResource($resource)
+    public function getResourcePrivilege()
     {
-        $this->resource = $resource;
-    }
-
-    /**
-     * @return Resource
-     */
-    public function getResource()
-    {
-        return $this->resource;
+        return $this->resource_privilege;
     }
 
     /**
@@ -109,7 +85,5 @@ class Allow extends AbstractEntity
     {
         return $this->role;
     }
-
-
 
 }

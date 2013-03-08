@@ -3,6 +3,7 @@
 namespace Access\Model;
 
 use Access\Entity;
+use Access\Utils;
 
 class User extends AbstractModel
 {
@@ -10,12 +11,13 @@ class User extends AbstractModel
 
     public function find($id)
     {
-        $usuario = $this->getRepository()->findBy(array('id' => $id))[0];
-        if (empty($usuario) || !$usuario->isActive()) {
+        $user = $this->getRepository()->findBy(array('id' => $id))[0];
+
+        if (empty($user) || !$user->isActive()) {
             return null;
         }
 
-        return $usuario;
+        return $user;
     }
 
     public function findByEmail($emailAddress)
@@ -37,6 +39,12 @@ class User extends AbstractModel
         $photo = $user->getPhoto();
         if (empty($photo)) {
             $user->setPhoto('/images/users_photo/default.gif');
+        }
+
+        $createdAt = $user->getCreatedAt();
+        if (empty($createdAt)) {
+            $now = new \DateTime();
+            $user->setCreatedAt($now->format("Y-m-d"));
         }
 
         $isActive = $user->isActive();

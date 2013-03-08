@@ -11,7 +11,7 @@ use Access\Utils;
 /**
  * User
  *
- * @ORM\Table(name="usuario")
+ * @ORM\Table(name="account")
  * @ORM\Entity
  */
 class User extends AbstractEntity
@@ -22,14 +22,14 @@ class User extends AbstractEntity
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="SEQUENCE")
-     * @ORM\SequenceGenerator(sequenceName="usuario_id_seq", allocationSize=1, initialValue=1)
+     * @ORM\SequenceGenerator(sequenceName="user_id_seq", allocationSize=1, initialValue=1)
      */
     private $id;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="nome_completo", type="string", length=50, nullable=false)
+     * @ORM\Column(name="fullname", type="string", length=50, nullable=false)
      */
     private $fullname;
 
@@ -50,21 +50,21 @@ class User extends AbstractEntity
     /**
      * @var string
      *
-     * @ORM\Column(name="src_imagem", type="text")
+     * @ORM\Column(name="photo", type="text")
      */
     private $photo;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="data_criacao", type="string")
+     * @ORM\Column(name="created_at", type="string")
      */
     private $createdAt;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="ativo", type="boolean")
+     * @ORM\Column(name="active", type="boolean")
      */
     private $active;
 

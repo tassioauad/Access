@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * UserRole
  *
- * @ORM\Table(name="usuario_grupo")
+ * @ORM\Table(name="user_role")
  * @ORM\Entity
  */
 class UserRole extends AbstractEntity
@@ -18,7 +18,7 @@ class UserRole extends AbstractEntity
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="SEQUENCE")
-     * @ORM\SequenceGenerator(sequenceName="usuario_grupo_id_seq", allocationSize=1, initialValue=1)
+     * @ORM\SequenceGenerator(sequenceName="user_role_id_seq", allocationSize=1, initialValue=1)
      */
     private $id;
 
@@ -27,7 +27,7 @@ class UserRole extends AbstractEntity
      *
      * @ORM\ManyToOne(targetEntity="Role", fetch="EAGER")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="grupoid", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="roleid", referencedColumnName="id")
      * })
      */
     private $role;
@@ -37,7 +37,7 @@ class UserRole extends AbstractEntity
      *
      * @ORM\ManyToOne(targetEntity="User", fetch="EAGER")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="usuarioid", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="userid", referencedColumnName="id")
      * })
      */
     private $user;

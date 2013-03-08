@@ -2,9 +2,9 @@
 
 namespace Access\Model;
 
-class Resource extends AbstractModel
+class ResourcePrivillege extends AbstractModel
 {
-    protected $entity = 'Access\Entity\Resource';
+    protected $entity = 'Access\Entity\ResourcePrivillege';
 
     public function find($id)
     {

@@ -29,7 +29,7 @@ class AccountController extends AbstractActionController
 
                 $userWithSameEmail = $modelUser->findByEmail($entityUser->getEmail());
                 if (empty($userWithSameEmail)) {
-                    $modelUser->insert($entityUser);
+                    $modelUser->save($entityUser);
 
                     $modelUserRole = $this->serviceLocator->get('Access\Model\UserRole');
                     $entityUserRole = new Entity\UserRole();
@@ -175,7 +175,16 @@ class AccountController extends AbstractActionController
                 break;
         }
 
-        $userNameArray = explode(" ", $this->access()->getUser()->getFullname()); //TODO : REMOVER ACENTOS
+        $userFullname = ereg_replace(
+            "[^a-zA-Z0-9_]", "",
+            strtr(
+                $this->access()->getUser()->getFullname(),
+                "áàãâéêíóôõúüçÁÀÃÂÉÊÍÓÔÕÚÜÇ ",
+                "aaaaeeiooouucAAAAEEIOOOUUC_"
+            )
+        );
+
+        $userNameArray = explode(" ", $userFullname);
         $photoName = strtolower($userNameArray[0] . $userNameArray[1]) . rand(0, 999999999) . $photoExtension;
 
         $arrayDIR = explode("\\", __DIR__);

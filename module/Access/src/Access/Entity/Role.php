@@ -9,7 +9,7 @@ use Zend\Permissions\Acl\Role\GenericRole;
 /**
  * Role
  *
- * @ORM\Table(name="grupo")
+ * @ORM\Table(name="role")
  * @ORM\Entity
  */
 class Role extends GenericRole implements InterfaceEntity
@@ -20,7 +20,7 @@ class Role extends GenericRole implements InterfaceEntity
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="SEQUENCE")
-     * @ORM\SequenceGenerator(sequenceName="grupo_id_seq", allocationSize=1, initialValue=1)
+     * @ORM\SequenceGenerator(sequenceName="role_id_seq", allocationSize=1, initialValue=1)
      */
     private $id;
 
@@ -34,7 +34,7 @@ class Role extends GenericRole implements InterfaceEntity
     /**
      * @var string
      *
-     * @ORM\Column(name="descricao", type="string", length=45, nullable=false)
+     * @ORM\Column(name="description", type="string", length=45, nullable=false)
      */
     private $description;
 

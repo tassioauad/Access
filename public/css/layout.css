@@ -1,5 +1,14 @@
-#main-menu {
+#first-top-bar {
     margin-bottom: 0px;
+}
+
+#first-top-bar-left header h1 {
+    margin: 0;
+}
+
+#first-top-bar-left header h1 a {
+    margin: 0;
+    padding: 0;
 }
 
 #breadcrumbs ul {
@@ -10,18 +19,23 @@
     color : black;
 }
 
-#user {
-    margin-left: 30%;
+#user_logged p{
+    margin: 0;
 }
 
-#user #user-photo {
+#user_logged a {
+    color: #999999;
+    text-decoration: none;
+    margin-top: 10px;
+}
+#user_logged #user-name {
+    padding-top: 2%;
+}
+
+#user_logged #user-photo {
     float: left;
     width: 40px;
     margin-right: 10px;
-}
-
-#user ul li{
-    width:500px;
 }
 
 .message {

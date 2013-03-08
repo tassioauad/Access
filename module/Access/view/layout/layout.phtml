@@ -19,37 +19,48 @@
     </head>
 
     <body>
-        <div id="main-menu" class="navbar navbar-inverse">
+        <section id="first-top-bar" class="row-fluid navbar navbar-inverse">
             <div class="navbar-inner">
-                <div class="container">
-                    <a class="brand" href="#">Access</a>
-                    <?php
-                    $loggedUser = $this->access()->getUser();
-                    if(!empty($loggedUser)):
+                <section id="first-top-bar-left" class="span2">
+                    <header>
+                        <h1><a class="brand" href="#">Access</a></h1>
+                    </header>
+                </section>
+                <section id="first-top-bar-center" class="span3">
+                <?php
+                $loggedUser = $this->access()->getUser();
+                if(!empty($loggedUser)):
                     ?>
-                    <div id="user" class="nav-collapse collapse navbar-collapse">
-                        <ul class="nav pull-left">
-                            <li><img id="user-photo" class="img-circle" src='<?= $this->access()->getUser()->getPhoto(); ?>' /><a><?=$this->access()->getUser()->getFullname(); ?></a></li>
-                        </ul>
-                    </div>
-                    <?php endif; ?>
+                        <div id="user_logged">
+                            <div id="user-photo">
+                                <img class="img-circle" src='<?= $this->access()->getUser()->getPhoto(); ?>' />
+                            </div>
+                            <div id="user-name">
+                                <a><?=$this->access()->getUser()->getFullname(); ?></a>
+                            </div>
+                        </div>
+                <?php endif; ?>
+                </section>
+                <section id="first-top-bar-right" class="span7">
                     <div id="main-menu" class="nav-collapse collapse navbar-inverse-collapse">
                         <?php echo $this->navigation('navigation')->menu()->setUlClass('nav pull-right') ?>
                     </div>
+                </section>
+            </div>
+        </section>
+        <section id="second-top-bar">
+            <div id="breadcrumbs" class="navbar">
+                <div class="navbar-inner">
+                    <?php
+                        echo $this->navigation('navigation')->breadcrumbs()
+                            ->setRenderInvisible(true)
+                            ->setLinkLast(true)
+                            ->setMinDepth(1)
+                            ->setPartial('access/breadcrumbs');
+                    ?>
                 </div>
             </div>
-        </div>
-        <div id="breadcrumbs" class="navbar">
-            <div class="navbar-inner">
-                <?php
-                    echo $this->navigation('navigation')->breadcrumbs()
-                        ->setRenderInvisible(true)
-                        ->setLinkLast(true)
-                        ->setMinDepth(1)
-                        ->setPartial('access/breadcrumbs');
-                ?>
-            </div>
-        </div>
+        </section>
         <?php
             if($this->messenger()->hasMessages()):
                 if($this->messenger()->hasMessages(Messenger\Helper\MessengerHelper::ERRO)):

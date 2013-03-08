@@ -23,7 +23,7 @@ class UserRole extends AbstractModel
         return $this->getRepository()->findAll();
     }
 
-    public function insert(Entity\UserRole $userRole)
+    public function save(Entity\UserRole $userRole)
     {
         try {
             $this->getEntityManager()->beginTransaction();

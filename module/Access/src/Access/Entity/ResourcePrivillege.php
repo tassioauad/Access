@@ -9,10 +9,10 @@ use Zend\Permissions\Acl\Resource\GenericResource;
 /**
  * Resource
  *
- * @ORM\Table(name="transacao")
+ * @ORM\Table(name="controller_action")
  * @ORM\Entity
  */
-class Resource extends GenericResource implements InterfaceEntity
+class ResourcePrivillege extends GenericResource implements InterfaceEntity
 {
     /**
      * @var integer
@@ -20,21 +20,28 @@ class Resource extends GenericResource implements InterfaceEntity
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="SEQUENCE")
-     * @ORM\SequenceGenerator(sequenceName="transacao_id_seq", allocationSize=1, initialValue=1)
+     * @ORM\SequenceGenerator(sequenceName="controller_action_id_seq", allocationSize=1, initialValue=1)
      */
     private $id;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="tag", type="string", length=10, nullable=false)
+     * @ORM\Column(name="controller", type="string", length=255, nullable=false)
      */
-    protected $resourceId;
+    protected $resource;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="descricao", type="string", length=255, nullable=false)
+     * @ORM\Column(name="action", type="string", length=255, nullable=false)
+     */
+    protected $privillege;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="string", length=255, nullable=false)
      */
     private $description;
 
@@ -91,19 +98,34 @@ class Resource extends GenericResource implements InterfaceEntity
     }
 
     /**
-     * @param string $resourceId
+     * @param string $privillege
      */
-    public function setResourceId($resourceId)
+    public function setPrivillege($privillege)
     {
-        $this->resourceId = $resourceId;
+        $this->privillege = $privillege;
     }
 
     /**
      * @return string
      */
-    public function getResourceId()
+    public function getPrivillege()
     {
-        return $this->resourceId;
+        return $this->privillege;
     }
 
-}
+    /**
+     * @param string $resource
+     */
+    public function setResource($resource)
+    {
+        $this->resource = $resource;
+    }
+
+    /**
+     * @return string
+     */
+    public function getResource()
+    {
+        return $this->resource;
+    }
+ }

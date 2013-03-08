@@ -17,14 +17,4 @@ class Allow extends AbstractModel
     {
         return $this->getRepository()->findAll();
     }
-
-    public function findByUserId($id)
-    {
-        return $this->getRepository()->findBy(array('usuarioid' => $id))[0];
-    }
-
-    public function findByUser(Entity\User $user)
-    {
-        return $this->getRepository()->findBy(array('usuarioid' => $user->getId()))[0];
-    }
 }

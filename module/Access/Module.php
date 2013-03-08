@@ -79,14 +79,9 @@ class Module
                         $model = new Model\Role($entityManager);
                         return $model;
                     },
-                    'Access\Model\Resource' => function ($sm) {
+                    'Access\Model\ResourcePrivillege' => function ($sm) {
                         $entityManager = $sm->get('Doctrine\ORM\EntityManager');
-                        $model = new Model\Resource($entityManager);
-                        return $model;
-                    },
-                    'Access\Model\Privillege' => function ($sm) {
-                        $entityManager = $sm->get('Doctrine\ORM\EntityManager');
-                        $model = new Model\Privillege($entityManager);
+                        $model = new Model\ResourcePrivillege($entityManager);
                         return $model;
                     },
                     'Access\Model\Allow' => function ($sm) {

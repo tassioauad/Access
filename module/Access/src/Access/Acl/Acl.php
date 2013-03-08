@@ -48,7 +48,6 @@ class Acl extends ZendAcl
         foreach ($this->generateAllows($serviceLocator) as $allow) {
             $this->allow($allow['role'], $allow['resource'], $allow['privillege']);
         }
-
     }
 
     public function generateRoles(ServiceLocatorInterface $serviceLocator)
@@ -68,14 +67,16 @@ class Acl extends ZendAcl
 
     public function generateResouces(ServiceLocatorInterface $serviceLocator)
     {
-        /**@var $resourceModel Model\Resource */
-        $resourceModel = $serviceLocator->get('Access\Model\Resource');
-        $resources = $resourceModel->findAll();
+        /**@var $resourceModel Model\ResourcePrivillege */
+        $resourcePrivillegeModel = $serviceLocator->get('Access\Model\ResourcePrivillege');
+        $resources = $resourcePrivillegeModel->findAll();
 
         $resourcesArray = array();
-        /**@var $resource Entity\Resource */
+        /**@var $resource Entity\ResourcePrivillege */
         foreach ($resources as $resource) {
-            $resourcesArray[] = new GenericResource($resource->getResourceId());
+            if (!in_array($resource->getResource(), $resourcesArray)) {
+                $resourcesArray[] = new GenericResource($resource->getResource());
+            }
         }
 
         return $resourcesArray;
@@ -92,8 +93,8 @@ class Acl extends ZendAcl
         foreach ($allows as $allow) {
             $allowsArray[] = array(
                 'role' => $allow->getRole(),
-                'resource' => $allow->getResource(),
-                'privillege' => $allow->getPrivillege()->getTag()
+                'resource' => $allow->getResourcePrivilege()->getResource(),
+                'privillege' => $allow->getResourcePrivilege()->getPrivillege()
             );
         }
 
