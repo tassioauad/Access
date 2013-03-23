@@ -1,0 +1,73 @@
+#head {
+    border-bottom: 1px solid #dddddd;
+    padding-bottom: 20px;
+    width:80%;
+    margin: 0 auto;
+}
+#datatable_wrapper {
+    margin: 0 auto;
+    width:80%;
+    padding-top: 10px;
+}
+.dataTables_paginate {
+    float:right;
+}
+
+#datatable_length {
+    width:250px;
+    float:right;
+}
+
+.paginate_active {
+    float: left;
+    padding: 4px 12px;
+    line-height: 20px;
+    text-decoration: none;
+    background-color: #f2f2f2;
+    border: 1px solid #dddddd;
+    border-left-width: 0;
+}
+
+.paginate_button {
+    float: left;
+    padding: 4px 12px;
+    line-height: 20px;
+    text-decoration: none;
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    border-left-width: 0;
+    cursor:pointer;
+}
+
+.paginate_button_disabled {
+    display:none;
+}
+
+#head #filter-block {
+    float:left;
+    width: 90%;
+}
+
+#filter-block .filter {
+    float:left;
+    margin-right: 20px;
+}
+
+#filter-block .filter label{
+    float:left;
+    margin-right: 5px;
+}
+
+#filter-block .filter input{
+    float:left;
+    margin-right: 5px;
+}
+
+#datatable_processing {
+    color: #3a87ad;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+    padding-top:3px;
+    padding-bottom:3px;
+    width:300px;
+}

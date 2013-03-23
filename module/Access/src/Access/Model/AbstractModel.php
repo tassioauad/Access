@@ -3,8 +3,12 @@
 namespace Access\Model;
 
 use Doctrine\ORM\EntityManager;
+use \Zend\Db\TableGateway\AbstractTableGateway;
+use \Zend\Db\Adapter\Adapter;
+use \Zend\Authentication\AuthenticationService;
 
-abstract class AbstractModel
+
+abstract class AbstractModel extends AbstractTableGateway
 {
     /**
      * @var string
@@ -20,9 +24,11 @@ abstract class AbstractModel
 	 */
     private $entityManager;
 
-    function __construct(EntityManager $entityManager)
+    function __construct(EntityManager $entityManager, Adapter $adapter)
     {
+        $this->adapter = $adapter;
         $this->entityManager = $entityManager;
+        $this->initialize();
     }
 
     /**

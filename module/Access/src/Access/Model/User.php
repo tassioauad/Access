@@ -8,6 +8,7 @@ use Access\Utils;
 class User extends AbstractModel
 {
     protected $entity = 'Access\Entity\User';
+    protected $table = "account";
 
     public function find($id)
     {
@@ -32,6 +33,8 @@ class User extends AbstractModel
 
     public function save(Entity\User $user)
     {
+        $user->setPassword(md5($user->getPassword()));
+
         if (empty($user)) {
             throw new \Exception("The user's entity is Empty and could not be inserted");
         }

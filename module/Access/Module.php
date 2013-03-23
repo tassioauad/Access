@@ -66,27 +66,32 @@ class Module
                     /* Models */
                     'Access\Model\User' => function ($sm) {
                         $entityManager = $sm->get('Doctrine\ORM\EntityManager');
-                        $model = new Model\User($entityManager);
+                        $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                        $model = new Model\User($entityManager, $dbAdapter);
                         return $model;
                     },
                     'Access\Model\UserRole' => function ($sm) {
                         $entityManager = $sm->get('Doctrine\ORM\EntityManager');
-                        $model = new Model\UserRole($entityManager);
+                        $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                        $model = new Model\UserRole($entityManager, $dbAdapter);
                         return $model;
                     },
                     'Access\Model\Role' => function ($sm) {
                         $entityManager = $sm->get('Doctrine\ORM\EntityManager');
-                        $model = new Model\Role($entityManager);
+                        $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                        $model = new Model\Role($entityManager, $dbAdapter);
                         return $model;
                     },
                     'Access\Model\ResourcePrivillege' => function ($sm) {
                         $entityManager = $sm->get('Doctrine\ORM\EntityManager');
-                        $model = new Model\ResourcePrivillege($entityManager);
+                        $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                        $model = new Model\ResourcePrivillege($entityManager, $dbAdapter);
                         return $model;
                     },
                     'Access\Model\Allow' => function ($sm) {
                         $entityManager = $sm->get('Doctrine\ORM\EntityManager');
-                        $model = new Model\Allow($entityManager);
+                        $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                        $model = new Model\Allow($entityManager, $dbAdapter);
                         return $model;
                     },
                     'Access\Auth\Auth' => function ($sm) {

@@ -7,6 +7,7 @@ use Access\Entity;
 class UserRole extends AbstractModel
 {
     protected $entity = 'Access\Entity\UserRole';
+    protected $table = 'user_role';
 
     public function find($id)
     {

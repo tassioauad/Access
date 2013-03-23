@@ -5,6 +5,7 @@ namespace Access\Model;
 class Role extends AbstractModel
 {
     protected $entity = 'Access\Entity\Role';
+    protected $table = 'role';
 
     public function find($id)
     {

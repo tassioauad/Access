@@ -92,6 +92,85 @@ return array(
                     ),
                 ),
             ),
+            'access-admin' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/admin',
+                    'defaults' => array(
+                        'controller' => 'Access\Controller\Admin',
+                        'action'     => 'index',
+                    ),
+                ),
+            ),
+            'access-admin-listuser' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/adminuser/list',
+                    'defaults' => array(
+                        'controller' => 'Access\Controller\AdminUser',
+                        'action'     => 'list',
+                    ),
+                ),
+            ),
+            'access-admin-createuser' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/adminuser/create',
+                    'defaults' => array(
+                        'controller' => 'Access\Controller\AdminUser',
+                        'action'     => 'create',
+                    ),
+                ),
+            ),
+            'access-admin-edituser' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/adminuser/edit[/:id]',
+                    'constraints' => array(
+                        'id' => '[a-zA-Z0-9\.]+'
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Access\Controller\AdminUser',
+                        'action'     => 'edit',
+                    ),
+                ),
+            ),
+            'access-admin-blockuser' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/adminuser/block[/:id]',
+                    'constraints' => array(
+                        'id' => '[a-zA-Z0-9\.]+'
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Access\Controller\AdminUser',
+                        'action'     => 'block',
+                    ),
+                ),
+            ),
+            'access-admin-unblockuser' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/adminuser/unblock[/:id]',
+                    'constraints' => array(
+                        'id' => '[a-zA-Z0-9\.]+'
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Access\Controller\AdminUser',
+                        'action'     => 'unblock',
+                    ),
+                ),
+            ),
+            'access-admin-datatable' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/adminuser/datatable',
+                    'defaults' => array(
+                        'controller' => 'Access\Controller\AdminUser',
+                        'action'     => 'datatable',
+                    ),
+                ),
+            ),
         ),
     ),
 
@@ -122,6 +201,8 @@ return array(
             'Access\Controller\Denied' => 'Access\Controller\DeniedController',
             'Access\Controller\Index' => 'Access\Controller\IndexController',
             'Access\Controller\Account' => 'Access\Controller\AccountController',
+            'Access\Controller\AdminUser' => 'Access\Controller\AdminUserController',
+            'Access\Controller\Admin' => 'Access\Controller\AdminController',
         ),
     ),
     'view_manager' => array(
@@ -139,6 +220,9 @@ return array(
         ),
         'template_path_stack' => array(
             __DIR__ . '/../view',
+        ),
+        'strategies' => array(
+            'ViewJsonStrategy',
         ),
     ),
 
@@ -212,6 +296,15 @@ return array(
                         'visible'    => false,
                     ),
                 )
+            ),
+            array(
+                'label'      => 'Admin',
+                'route'      => 'access-admin',
+                'controller' => 'admin',
+                'action'     => 'index',
+                'resource'   => 'ADMIN',
+                'privilege'  => 'INDEX',
+                'visible'    => true,
             ),
             array(
                 'label'      => 'Log out',

@@ -7,6 +7,7 @@ use Access\Entity;
 class Allow extends AbstractModel
 {
     protected $entity = 'Access\Entity\Allow';
+    protected $table = 'allow';
 
     public function find($id)
     {

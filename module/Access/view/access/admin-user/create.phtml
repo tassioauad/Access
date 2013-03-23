@@ -34,19 +34,19 @@
 <div class="container">
 
     <?php
-        $form->prepare();
-        echo $this->form()->openTag($form);
+    $form->prepare();
+    echo $this->form()->openTag($form);
     ?>
-        <h2 class="form-createaccount-heading">New Account</h2>
+    <h2 class="form-createaccount-heading">Create User</h2>
     <?php
-        echo $this->formRow($form->get('createaccount_fieldset')->get('fullname'));
-        echo $this->formRow($form->get('createaccount_fieldset')->get('email'));
-        echo $this->formRow($form->get('createaccount_fieldset')->get('password'));
-        echo $this->formRow($form->get('createaccount_fieldset')->get('repassword'));
+    echo $this->formRow($form->get('createaccount_fieldset')->get('fullname'));
+    echo $this->formRow($form->get('createaccount_fieldset')->get('email'));
+    echo $this->formRow($form->get('createaccount_fieldset')->get('password'));
+    echo $this->formRow($form->get('createaccount_fieldset')->get('repassword'));
 
-        echo $this->formHidden($form->get('security'));
+    echo $this->formHidden($form->get('security'));
 
-        echo $this->formButton($form->get('submit'));
+    echo $this->formButton($form->get('submit'));
     ?>
 
 
